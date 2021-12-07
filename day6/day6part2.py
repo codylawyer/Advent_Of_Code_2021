@@ -1,15 +1,15 @@
-f = open('testinput.txt')
+# had to get hint on this one because was doing naive way (see day 1)
+f = open('input.txt')
 lanternfish = [int(x) for x in f.readline().strip().split(',')]
+
+numPerDay = [0] * 9
+for fish in lanternfish:
+    numPerDay[fish] += 1
 
 daysToSimulate = 256
 for day in range(1,daysToSimulate+1):
-    lanternfishToAppend = 0
-    numLanternfish = len(lanternfish)
-    for idx in range(numLanternfish):
-        lanternfish[idx] -= 1
-        if lanternfish[idx] == -1:
-            lanternfishToAppend += 1
-            lanternfish[idx] = 6
-            lanternfish.append(8)
+    numZero = numPerDay.pop(0)
+    numPerDay.append(numZero)
+    numPerDay[-3] += numZero
 
-print(len(lanternfish))
+print(sum(numPerDay))
